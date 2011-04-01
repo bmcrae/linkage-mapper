@@ -34,6 +34,7 @@ def lm_master():
 
     """
     try:
+
         lu.check_project_dir()
 
         if set("# ").intersection(Cfg.PROJECTDIR):
@@ -80,13 +81,15 @@ def lm_master():
 
         if Cfg.STEP5:
             if Cfg.gp.Exists(Cfg.OUTPUTGDB):
+                Cfg.gp.RefreshCatalog(Cfg.OUTPUTGDB)
                 Cfg.gp.addmessage('Deleting geodatabase ' + Cfg.OUTPUTGDB)
                 try:
                     Cfg.gp.delete_management(Cfg.OUTPUTGDB)
                 except:
                     lu.dashline(1)
                     msg = ('ERROR: Could not remove geodatabase ' +
-                           Cfg.OUTPUTGDB + '. Is it open in ArcMap?')
+                           Cfg.OUTPUTGDB + '. Is it open in ArcMap?\n You may '
+                           'need to re-start ArcMap to release the file lock.')
                     Cfg.gp.AddError(msg)
                     exit(1)
 
@@ -121,7 +124,8 @@ def lm_master():
             s5.STEP5_calc_lccs()  # Run step 5
 
         Cfg.gp.addmessage('\nDONE!\n')
-
+        del Cfg.gp
+        
     # Return GEOPROCESSING specific errors
     except arcgisscripting.ExecuteError:
         filename = 'lm_master.py'
