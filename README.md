@@ -1,4 +1,4 @@
 # linkage-mapper
 Linkage Mapper connectivity analysis toolbox
 
-Please visit the Linkage Mapper Website at http://www.circuitscape.org/linkagemapper
+Active development of this project has moved to [Linkagescape](https://github.com/linkagescape/linkage-mapper).
